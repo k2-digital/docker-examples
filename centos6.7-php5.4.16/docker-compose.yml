@@ -1,8 +1,19 @@
 version: "2"
 services:
+  db:
+    image: mysql:5.6
+    volumes:
+      - ./sql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: YOUR_ROOT_PASSWORD
+      MYSQL_DATABASE: YOUR_DATA
+      MYSQL_USER: YOUR_USERNAME
+      MYSQL_PASSWORD: YOUR_PASSWORD
   web:
     build: .
     volumes:
       - "./html:/var/www/html"
     ports:
       - "8080:80"
+    links:
+      - db
